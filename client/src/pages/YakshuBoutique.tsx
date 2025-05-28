@@ -68,7 +68,21 @@ const translations = {
     adminPassword: "Admin Password",
     addAdmin: "Add Admin",
     currentAdmins: "Current Admins",
-    remove: "Remove"
+    remove: "Remove",
+    viewDetails: "View Details",
+    searchDresses: "Search dresses...",
+    filterByPrice: "Filter by Price",
+    allPrices: "All Prices",
+    under1000: "Under ₹1000",
+    under2000: "Under ₹2000",
+    above2000: "Above ₹2000",
+    availableSizes: "Available Sizes",
+    dressDetails: "Dress Details",
+    close: "Close",
+    contactToPurchase: "Contact to Purchase",
+    instagram: "Instagram",
+    mobile: "Mobile",
+    contactInfo: "Contact us to purchase this dress"
   },
   hi: {
     appName: "यक्षु का बुटीक",
@@ -95,7 +109,103 @@ const translations = {
     adminPassword: "एडमिन पासवर्ड",
     addAdmin: "एडमिन जोड़ें",
     currentAdmins: "वर्तमान एडमिन",
-    remove: "हटाएं"
+    remove: "हटाएं",
+    viewDetails: "विवरण देखें",
+    searchDresses: "ड्रेस खोजें...",
+    filterByPrice: "कीमत के अनुसार फ़िल्टर करें",
+    allPrices: "सभी कीमतें",
+    under1000: "₹1000 से कम",
+    under2000: "₹2000 से कम",
+    above2000: "₹2000 से अधिक",
+    availableSizes: "उपलब्ध आकार",
+    dressDetails: "ड्रेस विवरण",
+    close: "बंद करें",
+    contactToPurchase: "खरीदने के लिए संपर्क करें",
+    instagram: "इंस्टाग्राम",
+    mobile: "मोबाइल",
+    contactInfo: "इस ड्रेस को खरीदने के लिए हमसे संपर्क करें"
+  },
+  ml: {
+    appName: "യക്ഷുവിന്റെ ബൂട്ടിക്",
+    ourCollection: "ഞങ്ങളുടെ കളക്ഷൻ",
+    adminLogin: "അഡ്മിൻ ലോഗിൻ",
+    uploadDress: "ഡ്രസ് അപ്‌ലോഡ് ചെയ്യുക",
+    viewDresses: "ഡ്രസുകൾ കാണുക",
+    logout: "ലോഗൗട്ട്",
+    dressName: "ഡ്രസിന്റെ പേര്",
+    price: "വില (₹)",
+    sizes: "ലഭ്യമായ സൈസുകൾ",
+    sizesExample: "S, M, L, XL",
+    description: "വിവരണം",
+    dressImage: "ഡ്രസിന്റെ ചിത്രം",
+    cancel: "റദ്ദാക്കുക",
+    upload: "അപ്‌ലോഡ് ചെയ്യുക",
+    enterEmail: "ഇമെയിൽ നൽകുക",
+    enterPassword: "പാസ്‌വേഡ് നൽകുക",
+    login: "ലോഗിൻ",
+    allRightsReserved: "എല്ലാ അവകാശങ്ങളും സംരക്ഷിതം",
+    adminPanel: "അഡ്മിൻ പാനൽ",
+    addNewAdmin: "പുതിയ അഡ്മിൻ ചേർക്കുക",
+    adminEmail: "അഡ്മിൻ ഇമെയിൽ",
+    adminPassword: "അഡ്മിൻ പാസ്‌വേഡ്",
+    addAdmin: "അഡ്മിൻ ചേർക്കുക",
+    currentAdmins: "നിലവിലെ അഡ്മിൻമാർ",
+    remove: "നീക്കം ചെയ്യുക",
+    viewDetails: "വിശദാംശങ്ങൾ കാണുക",
+    searchDresses: "ഡ്രസുകൾ തിരയുക...",
+    filterByPrice: "വിലയനുസരിച്ച് ഫിൽട്ടർ ചെയ്യുക",
+    allPrices: "എല്ലാ വിലകളും",
+    under1000: "₹1000 ൽ താഴെ",
+    under2000: "₹2000 ൽ താഴെ",
+    above2000: "₹2000 ൽ മുകളിൽ",
+    availableSizes: "ലഭ്യമായ സൈസുകൾ",
+    dressDetails: "ഡ്രസിന്റെ വിശദാംശങ്ങൾ",
+    close: "അടയ്ക്കുക",
+    contactToPurchase: "വാങ്ങാൻ ബന്ധപ്പെടുക",
+    instagram: "ഇൻസ്റ്റാഗ്രാം",
+    mobile: "മൊബൈൽ",
+    contactInfo: "ഈ ഡ്രസ് വാങ്ങാൻ ഞങ്ങളെ ബന്ധപ്പെടുക"
+  },
+  ta: {
+    appName: "யக்ஷுவின் பூட்டீக்",
+    ourCollection: "எங்கள் சேகரிப்பு",
+    adminLogin: "நிர்வாக உள்நுழைவு",
+    uploadDress: "ஆடை பதிவேற்றம்",
+    viewDresses: "ஆடைகளைப் பார்க்கவும்",
+    logout: "வெளியேறு",
+    dressName: "ஆடையின் பெயர்",
+    price: "விலை (₹)",
+    sizes: "கிடைக்கும் அளவுகள்",
+    sizesExample: "S, M, L, XL",
+    description: "விளக்கம்",
+    dressImage: "ஆடையின் படம்",
+    cancel: "ரத்து செய்",
+    upload: "பதிவேற்று",
+    enterEmail: "மின்னஞ்சலை உள்ளிடவும்",
+    enterPassword: "கடவுச்சொல்லை உள்ளிடவும்",
+    login: "உள்நுழை",
+    allRightsReserved: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன",
+    adminPanel: "நிர்வாக பாளம்",
+    addNewAdmin: "புதிய நிர்வாகியைச் சேர்க்கவும்",
+    adminEmail: "நிர்வாக மின்னஞ்சல்",
+    adminPassword: "நிர்வாக கடவுச்சொல்",
+    addAdmin: "நிர்வாகியைச் சேர்க்கவும்",
+    currentAdmins: "தற்போதைய நிர்வாகிகள்",
+    remove: "அகற்று",
+    viewDetails: "விவரங்களைப் பார்க்கவும்",
+    searchDresses: "ஆடைகளைத் தேடுங்கள்...",
+    filterByPrice: "விலையின் அடிப்படையில் வடிகட்டவும்",
+    allPrices: "அனைத்து விலைகளும்",
+    under1000: "₹1000க்குக் கீழ்",
+    under2000: "₹2000க்குக் கீழ்",
+    above2000: "₹2000க்கு மேல்",
+    availableSizes: "கிடைக்கும் அளவுகள்",
+    dressDetails: "ஆடையின் விவரங்கள்",
+    close: "மூடு",
+    contactToPurchase: "வாங்க தொடர்பு கொள்ளுங்கள்",
+    instagram: "இன்ஸ்டாகிராம்",
+    mobile: "மொபைல்",
+    contactInfo: "இந்த ஆடையை வாங்க எங்களை தொடர்பு கொள்ளுங்கள்"
   }
 };
 
@@ -103,7 +213,10 @@ const YakshuBoutique: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'hi'>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'hi' | 'ml' | 'ta'>('en');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [priceFilter, setPriceFilter] = useState("all");
+  const [selectedDress, setSelectedDress] = useState<Dress | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loginError, setLoginError] = useState("");
   
@@ -130,6 +243,19 @@ const YakshuBoutique: React.FC = () => {
   // Fetch dresses
   const { data: dresses = [], isLoading: dressesLoading } = useQuery<Dress[]>({
     queryKey: ['/api/dresses'],
+  });
+
+  // Filter dresses based on search and price
+  const filteredDresses = dresses.filter((dress) => {
+    const matchesSearch = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         dress.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesPrice = priceFilter === "all" ||
+                        (priceFilter === "under1000" && dress.price < 1000) ||
+                        (priceFilter === "under2000" && dress.price < 2000) ||
+                        (priceFilter === "above2000" && dress.price >= 2000);
+    
+    return matchesSearch && matchesPrice;
   });
 
   // Fetch admin users
@@ -311,11 +437,13 @@ const YakshuBoutique: React.FC = () => {
             <div className="relative">
               <select
                 value={currentLanguage}
-                onChange={(e) => setCurrentLanguage(e.target.value as 'en' | 'hi')}
+                onChange={(e) => setCurrentLanguage(e.target.value as 'en' | 'hi' | 'ml' | 'ta')}
                 className="appearance-none bg-white border rounded py-2 px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
               >
                 <option value="en">English</option>
                 <option value="hi">हिंदी</option>
+                <option value="ml">മലയാളം</option>
+                <option value="ta">தமிழ்</option>
               </select>
               <ChevronDown className="absolute right-3 top-2.5 h-4 w-4 text-gray-500 pointer-events-none" />
             </div>
@@ -628,11 +756,38 @@ const YakshuBoutique: React.FC = () => {
         {(!showUploadForm || !isLoggedIn) && !showAdminPanel && (
           <div>
             <h2 className="text-3xl font-bold text-center mb-8">{t('ourCollection')}</h2>
+            
+            {/* Search and Filter Controls */}
+            <div className="mb-8 flex flex-col md:flex-row gap-4 justify-center items-center">
+              <div className="relative">
+                <Input
+                  type="text"
+                  placeholder={t('searchDresses')}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-64"
+                />
+              </div>
+              <div className="relative">
+                <select
+                  value={priceFilter}
+                  onChange={(e) => setPriceFilter(e.target.value)}
+                  className="appearance-none bg-white border rounded py-2 px-3 pr-8 focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                >
+                  <option value="all">{t('allPrices')}</option>
+                  <option value="under1000">{t('under1000')}</option>
+                  <option value="under2000">{t('under2000')}</option>
+                  <option value="above2000">{t('above2000')}</option>
+                </select>
+                <ChevronDown className="absolute right-3 top-2.5 h-4 w-4 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
             {dressesLoading ? (
               <div className="text-center">Loading collection...</div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {dresses.map((dress) => (
+                {filteredDresses.map((dress) => (
                   <Card key={dress.id} className="overflow-hidden">
                     <div className="aspect-square relative">
                       <img 
@@ -644,7 +799,7 @@ const YakshuBoutique: React.FC = () => {
                     <CardContent className="p-4">
                       <h3 className="text-xl font-semibold mb-2">{dress.name}</h3>
                       <p className="text-gray-600 mb-2">{dress.description}</p>
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-center mb-3">
                         <span className="text-2xl font-bold text-pink-500">
                           ₹{dress.price.toLocaleString()}
                         </span>
@@ -659,6 +814,13 @@ const YakshuBoutique: React.FC = () => {
                           ))}
                         </div>
                       </div>
+                      <Button 
+                        onClick={() => setSelectedDress(dress)}
+                        className="w-full"
+                        variant="outline"
+                      >
+                        {t('viewDetails')}
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -667,6 +829,97 @@ const YakshuBoutique: React.FC = () => {
           </div>
         )}
       </main>
+
+      {/* Dress Details Modal */}
+      {selectedDress && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-2xl font-bold">{t('dressDetails')}</h3>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setSelectedDress(null)}
+                >
+                  ✕
+                </Button>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <img 
+                    src={selectedDress.image} 
+                    alt={selectedDress.name}
+                    className="w-full h-64 md:h-80 object-cover rounded-lg"
+                  />
+                </div>
+                
+                <div className="space-y-4">
+                  <h4 className="text-xl font-semibold">{selectedDress.name}</h4>
+                  <p className="text-gray-600">{selectedDress.description}</p>
+                  
+                  <div>
+                    <span className="text-3xl font-bold text-pink-500">
+                      ₹{selectedDress.price.toLocaleString()}
+                    </span>
+                  </div>
+                  
+                  <div>
+                    <h5 className="font-semibold mb-2">{t('availableSizes')}:</h5>
+                    <div className="flex gap-2 flex-wrap">
+                      {selectedDress.sizes.map((size) => (
+                        <span 
+                          key={size}
+                          className="px-3 py-2 bg-pink-100 text-pink-700 rounded-lg font-medium"
+                        >
+                          {size}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="border-t pt-4">
+                    <h5 className="font-semibold mb-3 text-lg">{t('contactToPurchase')}</h5>
+                    <p className="text-gray-600 mb-3">{t('contactInfo')}</p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium">{t('instagram')}:</span>
+                        <a 
+                          href="https://instagram.com/yakshu_boutique" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-pink-600 hover:text-pink-700 underline"
+                        >
+                          @yakshu_boutique
+                        </a>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium">{t('mobile')}:</span>
+                        <a 
+                          href="tel:+919876543210" 
+                          className="text-pink-600 hover:text-pink-700 underline"
+                        >
+                          +91 98765 43210
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 flex justify-end">
+                <Button 
+                  onClick={() => setSelectedDress(null)}
+                  variant="outline"
+                >
+                  {t('close')}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t mt-12 py-8">

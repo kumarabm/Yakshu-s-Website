@@ -149,14 +149,21 @@ const YakshuBoutique: React.FC = () => {
       setShowUploadForm(false);
       setShowAdminPanel(false);
       setLoginError("");
+      setLoginData({ email: "", password: "" });
       toast({
         title: "Login successful",
         description: "Welcome to Yakshu's Boutique admin panel",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/users'] });
     },
-    onError: () => {
+    onError: (error: any) => {
+      console.error("Login error:", error);
       setLoginError("Invalid email or password");
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password",
+        variant: "destructive",
+      });
     }
   });
 

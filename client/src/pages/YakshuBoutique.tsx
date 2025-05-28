@@ -514,7 +514,7 @@ const YakshuBoutique: React.FC = () => {
                 <CardTitle className="text-center">{t('adminLogin')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4" autoComplete="off">
                   <div className="space-y-2">
                     <Label htmlFor="loginEmail">{t('enterEmail')}</Label>
                     <Input
@@ -523,7 +523,8 @@ const YakshuBoutique: React.FC = () => {
                       type="email"
                       value={loginData.email}
                       onChange={handleLoginInputChange}
-                      placeholder="admin@yakshu.com"
+                      placeholder="aaa@email.com"
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -536,6 +537,7 @@ const YakshuBoutique: React.FC = () => {
                       value={loginData.password}
                       onChange={handleLoginInputChange}
                       placeholder="••••••••"
+                       autoComplete="new-password"
                       required
                     />
                   </div>
@@ -573,7 +575,7 @@ const YakshuBoutique: React.FC = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleAddAdmin} className="space-y-4">
+                  <form onSubmit={handleAddAdmin} className="space-y-4" autoComplete="off">
                     <div className="space-y-2">
                       <Label htmlFor="adminEmail">{t('adminEmail')}</Label>
                       <Input
@@ -582,7 +584,8 @@ const YakshuBoutique: React.FC = () => {
                         type="email"
                         value={newAdmin.email}
                         onChange={handleAdminInputChange}
-                        placeholder="admin@example.com"
+                        placeholder="abc@email.com"
+                        autoComplete="off"
                         required
                       />
                     </div>
@@ -595,6 +598,7 @@ const YakshuBoutique: React.FC = () => {
                         value={newAdmin.password}
                         onChange={handleAdminInputChange}
                         placeholder="••••••••"
+                         autoComplete="new-password"
                         required
                       />
                     </div>
@@ -711,6 +715,7 @@ const YakshuBoutique: React.FC = () => {
                           type="file"
                           accept="image/*"
                           onChange={handleImageUpload}
+                          required
                         />
                       </div>
                       {previewImage && (
@@ -886,12 +891,12 @@ const YakshuBoutique: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <span className="font-medium">{t('instagram')}:</span>
                         <a 
-                          href="https://instagram.com/yakshu_boutique" 
+                          href="https://instagram.com/sara_nya1961" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-pink-600 hover:text-pink-700 underline"
                         >
-                          @yakshu_boutique
+                          @sara_nya1961
                         </a>
                       </div>
                       <div className="flex items-center gap-3">
@@ -900,7 +905,7 @@ const YakshuBoutique: React.FC = () => {
                           href="tel:+919876543210" 
                           className="text-pink-600 hover:text-pink-700 underline"
                         >
-                          +91 98765 43210
+                          +91 90800 07550
                         </a>
                       </div>
                     </div>
@@ -924,7 +929,7 @@ const YakshuBoutique: React.FC = () => {
       {/* Footer */}
       <footer className="bg-white border-t mt-12 py-8">
         <div className="container mx-auto px-4 text-center text-gray-600">
-          <p>&copy; 2024 Yakshu's Boutique. {t('allRightsReserved')}.</p>
+          <p>&copy; 2025 Yakshu's Boutique. {t('allRightsReserved')}.</p>
         </div>
       </footer>
     </div>

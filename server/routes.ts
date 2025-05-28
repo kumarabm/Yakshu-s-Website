@@ -26,6 +26,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put("/api/dresses/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validatedData = insertDressSchema.parse(req.body);
+      const dress = await storage.updateDress(parseInt(id), validatedData);
+      if (!dress) {
+        return res.status(404).json({ message: "Dress not found" });
+      }
+      res.json(dress);
+    } catch (error) {
+      console.error("Error updating dress:", error);
+      res.status(400).json({ message: "Failed to update dress" });
+    }
+  });
+
+  app.delete("/api/dresses/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const success = await storage.deleteDress(parseInt(id));
+      if (!success) {
+        return res.status(404).json({ message: "Dress not found" });
+      }
+      res.json({ message: "Dress deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting dress:", error);
+      res.status(500).json({ message: "Failed to delete dress" });
+    }
+  });
+
   // Admin authentication routes
   app.post("/api/admin/login", async (req, res) => {
     try {

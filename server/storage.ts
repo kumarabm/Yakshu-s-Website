@@ -10,6 +10,9 @@ export interface IStorage {
   getAdminByEmail(email: string): Promise<AdminUser | undefined>;
   createAdminUser(admin: InsertAdminUser): Promise<AdminUser>;
   deleteAdminUser(email: string): Promise<void>;
+
+  updateDress(id: number, dress: InsertDress): Promise<Dress | undefined>;
+  deleteDress(id: number): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -83,6 +86,25 @@ export class MemStorage implements IStorage {
     };
     this.dresses.set(id, dress);
     return dress;
+  }
+
+  async updateDress(id: number, dress: InsertDress): Promise<Dress | undefined> {
+    if (!this.dresses.has(id)) {
+      return undefined;
+    }
+
+    const updatedDress: Dress = {
+      ...dress,
+      id,
+      createdAt: this.dresses.get(id)!.createdAt,
+    };
+
+    this.dresses.set(id, updatedDress);
+    return updatedDress;
+  }
+
+  async deleteDress(id: number): Promise<boolean> {
+    return this.dresses.delete(id);
   }
 
   async getAdminUsers(): Promise<AdminUser[]> {

@@ -352,6 +352,10 @@ const YakshuBoutique: React.FC = () => {
                     setShowUploadForm(false);
                     setLoginData({ email: "", password: "" });
                     setLoginError("");
+                    // Force a small delay to ensure state is properly reset
+                    setTimeout(() => {
+                      setShowUploadForm(false);
+                    }, 10);
                   }}
                   className="flex items-center gap-2"
                 >

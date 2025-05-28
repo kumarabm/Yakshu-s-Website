@@ -32,45 +32,22 @@ export class MemStorage implements IStorage {
   }
 
   private initializeData() {
-    // Add initial dresses
-    const initialDresses: InsertDress[] = [
-      {
-        name: "Floral Summer Dress",
-        price: 1599,
-        sizes: ["S", "M", "L"],
-        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&auto=format&fit=crop",
-        description: "Lightweight floral dress perfect for summer outings"
-      },
-      {
-        name: "Elegant Evening Gown",
-        price: 2599,
-        sizes: ["M", "L", "XL"],
-        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop",
-        description: "Stunning gown for formal occasions"
-      }
-    ];
+    // Initialize without any initial dresses - they will be uploaded by admin
+    this.initializeDefaultAdmin(); // Initialize default admin during data initialization
+  }
 
-    initialDresses.forEach(dress => {
-      const id = this.currentDressId++;
-      const newDress: Dress = { 
-        ...dress, 
-        id, 
-        createdAt: new Date() 
-      };
-      this.dresses.set(id, newDress);
-    });
-
-    // Add initial admin users
-    const initialAdmins: InsertAdminUser[] = [
-      { email: "admin@yakshu.com", password: "admin123" },
-      { email: "manager@yakshu.com", password: "manager123" }
-    ];
-
-    initialAdmins.forEach(admin => {
+  private async initializeDefaultAdmin(): Promise<void> {
+    const existingAdmin = Array.from(this.adminUsers.values()).find(admin => admin.email === "admin@yakshu.com");
+    if (!existingAdmin) {
       const id = this.currentAdminId++;
-      const newAdmin: AdminUser = { ...admin, id };
+      const newAdmin: AdminUser = {
+        id,
+        email: "admin@yakshu.com",
+        password: "admin123"
+      };
       this.adminUsers.set(id, newAdmin);
-    });
+      console.log("Default admin user created: admin@yakshu.com");
+    }
   }
 
   async getDresses(): Promise<Dress[]> {

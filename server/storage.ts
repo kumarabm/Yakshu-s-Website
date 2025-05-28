@@ -33,6 +33,7 @@ export class MemStorage implements IStorage {
 
   private initializeData() {
     // Initialize without any initial dresses - they will be uploaded by admin
+    // Default placeholder image will be served from /api/images/placeholder.jpg
     this.initializeDefaultAdmin(); // Initialize default admin during data initialization
   }
 

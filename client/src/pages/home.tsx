@@ -142,18 +142,18 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-gray-900 mb-8">{t("contact")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Phone</h3>
-              <p className="text-gray-600">+91 98765 43210</p>
+              <h3 className="text-lg font-semibold mb-2">Contact No</h3>
+              <p className="text-gray-600">+91 90800 07550</p>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2">Instagram</h3>
               <a 
-                href="https://instagram.com/yakshu_boutique" 
+                href="https://instagram.com/sara_nya1961" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-boutique-600 hover:text-boutique-700"
               >
-                @yakshu_boutique
+                @sara_nya1961
               </a>
             </div>
           </div>

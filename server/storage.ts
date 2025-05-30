@@ -58,8 +58,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteAdminUser(id: string): Promise<boolean> {
-    const result = await AdminUser.findByIdAndDelete(id);
-    return result !== null;
+    try {
+      const result = await AdminUser.findByIdAndDelete(id);
+      return result !== null;
+    } catch (error) {
+      console.error("Error deleting admin user:", error);
+      return false;
+    }
   }
 
   // Dress methods

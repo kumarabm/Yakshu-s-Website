@@ -84,17 +84,17 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
               <div className="space-y-2">
                 <div className="flex items-center">
                   <Phone className="text-boutique-600 mr-3" size={20} />
-                  <span className="text-gray-700">+91 98765 43210</span>
+                  <span className="text-gray-700">+91 90800 07550</span>
                 </div>
                 <div className="flex items-center">
                   <Instagram className="text-boutique-600 mr-3" size={20} />
                   <a 
-                    href="https://instagram.com/yakshu_boutique" 
+                    href="https://instagram.com/sara_nya1961" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-boutique-600 hover:text-boutique-700"
                   >
-                    @yakshu_boutique
+                    @sara_nya1961
                   </a>
                 </div>
               </div>

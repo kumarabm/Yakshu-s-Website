@@ -20,7 +20,7 @@ export function Footer() {
             <div className="space-y-2">
               <div className="flex items-center text-gray-300">
                 <Phone size={16} className="mr-2" />
-                +91 98765 43210
+                +91 90800 07550
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail size={16} className="mr-2" />
@@ -33,7 +33,7 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">{t("footer.followUs")}</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://instagram.com/yakshu_boutique" 
+                href="https://instagram.com/sara_nya1961" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
@@ -47,7 +47,7 @@ export function Footer() {
                 <Facebook size={24} />
               </a>
               <a 
-                href="https://wa.me/919876543210" 
+                href="https://wa.me/919080007550" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"

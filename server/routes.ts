@@ -95,7 +95,13 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "No admin users found." });
     }
 
-    const usersWithoutPasswords = adminUsers.map(({ password, ...user }) => user);
+    const usersWithoutPasswords = adminUsers.map((user: any) => {
+      const { password, ...userWithoutPassword } = user.toObject ? user.toObject() : user;
+      return {
+        ...userWithoutPassword,
+        id: userWithoutPassword._id || userWithoutPassword.id
+      };
+    });
     res.json(usersWithoutPasswords);
   } catch (error) {
     console.error("Get admin users error:", error);
@@ -130,6 +136,10 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
   app.delete("/api/admin/users/:id", authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
+      
+      if (!id || id === "undefined" || id.length !== 24) {
+        return res.status(400).json({ message: "Invalid admin user ID" });
+      }
       
       // Check if it's the last admin
       const allAdmins = await storage.getAllAdminUsers();

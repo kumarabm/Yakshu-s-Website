@@ -680,7 +680,7 @@ export default function Admin() {
                 ) : adminUsers && adminUsers.length > 0 ? (
                   <div className="space-y-4">
                     {adminUsers.map((user) => (
-                      <div key={user.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div key={user._id || user.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                         <div>
                           <h4 className="font-medium text-gray-900">{user.name}</h4>
                           <p className="text-sm text-gray-600">{user.email}</p>
@@ -700,7 +700,7 @@ export default function Admin() {
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleDeleteAdmin(user.id)}
+                            onClick={() => handleDeleteAdmin(user._id || user.id)}
                             disabled={deleteAdminMutation.isPending}
                           >
                             <Trash2 size={16} className="mr-1" />

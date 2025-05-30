@@ -1,3 +1,6 @@
+/* Font Awesome icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -85,9 +88,6 @@
 .hover\:bg-boutique-700:hover { background-color: hsl(var(--boutique-700)); }
 .hover\:text-boutique-600:hover { color: hsl(var(--boutique-600)); }
 .hover\:text-boutique-700:hover { color: hsl(var(--boutique-700)); }
-
-/* Font Awesome icons */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 /* Smooth animations */
 .transition-colors {

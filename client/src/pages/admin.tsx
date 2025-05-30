@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { type Dress, type AdminUser } from "@shared/schema";
@@ -39,6 +40,17 @@ export default function Admin() {
     email: "",
     password: "",
     role: "admin",
+  });
+
+  const [editingDress, setEditingDress] = useState<Dress | null>(null);
+  const [editDressForm, setEditDressForm] = useState({
+    name: "",
+    price: "",
+    sizes: "",
+    shortDescription: "",
+    fullDescription: "",
+    category: "",
+    image: null as File | null,
   });
 
   // Authentication check
@@ -234,11 +246,61 @@ export default function Admin() {
     },
   });
 
-  
+  const editDressMutation = useMutation({
+    mutationFn: async ({ id, formData }: { id: string; formData: FormData }) => {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch(`/api/dresses/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      if (!response.ok) throw new Error("Failed to update dress");
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/dresses"] });
+      setEditingDress(null);
+      setEditDressForm({
+        name: "",
+        price: "",
+        sizes: "",
+        shortDescription: "",
+        fullDescription: "",
+        category: "",
+        image: null,
+      });
+      toast({
+        title: "Success",
+        description: "Dress updated successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleEditDress = (dress: Dress) => {
+    setEditingDress(dress);
+    setEditDressForm({
+      name: dress.name,
+      price: dress.price.toString(),
+      sizes: dress.sizes.join(", "),
+      shortDescription: dress.shortDescription,
+      fullDescription: dress.fullDescription,
+      category: dress.category,
+      image: null,
+    });
+  };
 
   const handleDressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!dressForm.name || !dressForm.price || !dressForm.sizes || !dressForm.shortDescription || 
         !dressForm.fullDescription || !dressForm.category) {
       toast({
@@ -256,7 +318,7 @@ export default function Admin() {
     formData.append("shortDescription", dressForm.shortDescription);
     formData.append("fullDescription", dressForm.fullDescription);
     formData.append("category", dressForm.category);
-    
+
     if (dressForm.image) {
       formData.append("image", dressForm.image);
     }
@@ -264,9 +326,37 @@ export default function Admin() {
     addDressMutation.mutate(formData);
   };
 
+  const handleEditDressSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!editingDress || !editDressForm.name || !editDressForm.price || !editDressForm.sizes || 
+        !editDressForm.shortDescription || !editDressForm.fullDescription || !editDressForm.category) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", editDressForm.name);
+    formData.append("price", editDressForm.price);
+    formData.append("sizes", editDressForm.sizes);
+    formData.append("shortDescription", editDressForm.shortDescription);
+    formData.append("fullDescription", editDressForm.fullDescription);
+    formData.append("category", editDressForm.category);
+
+    if (editDressForm.image) {
+      formData.append("image", editDressForm.image);
+    }
+
+    editDressMutation.mutate({ id: editingDress._id || editingDress.id, formData });
+  };
+
   const handleAdminSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!adminForm.name || !adminForm.email || !adminForm.password) {
       toast({
         title: "Error",
@@ -392,7 +482,7 @@ export default function Admin() {
                       </Select>
                     </div>
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="shortDescription">{t("shortDescription")}</Label>
                     <Input
@@ -402,7 +492,7 @@ export default function Admin() {
                       required
                     />
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="fullDescription">{t("fullDescription")}</Label>
                     <Textarea
@@ -413,7 +503,7 @@ export default function Admin() {
                       required
                     />
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="image">{t("dressImage")}</Label>
                     <Input
@@ -423,7 +513,7 @@ export default function Admin() {
                       onChange={(e) => setDressForm({ ...dressForm, image: e.target.files?.[0] || null })}
                     />
                   </div>
-                  
+
                   <Button
                     type="submit"
                     className="bg-boutique-500 hover:bg-boutique-600"
@@ -477,6 +567,7 @@ export default function Admin() {
                             size="sm"
                             variant="outline"
                             className="text-blue-600 hover:bg-blue-50"
+                            onClick={() => handleEditDress(dress)}
                           >
                             <Edit size={16} className="mr-1" />
                             {t("edit")}
@@ -553,7 +644,7 @@ export default function Admin() {
                       </Select>
                     </div>
                   </div>
-                  
+
                   <Button
                     type="submit"
                     className="bg-boutique-500 hover:bg-boutique-600"
@@ -627,6 +718,112 @@ export default function Admin() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Edit Dress Modal */}
+      <Dialog open={!!editingDress} onOpenChange={() => setEditingDress(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Dress</DialogTitle>
+          </DialogHeader>
+          
+          <form onSubmit={handleEditDressSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="editDressName">{t("dressName")}</Label>
+                <Input
+                  id="editDressName"
+                  value={editDressForm.name}
+                  onChange={(e) => setEditDressForm({ ...editDressForm, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="editPrice">{t("price")} (₹)</Label>
+                <Input
+                  id="editPrice"
+                  type="number"
+                  value={editDressForm.price}
+                  onChange={(e) => setEditDressForm({ ...editDressForm, price: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="editSizes">{t("sizes")}</Label>
+                <Input
+                  id="editSizes"
+                  placeholder="e.g., S, M, L, XL"
+                  value={editDressForm.sizes}
+                  onChange={(e) => setEditDressForm({ ...editDressForm, sizes: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="editCategory">{t("category")}</Label>
+                <Select value={editDressForm.category} onValueChange={(value) => setEditDressForm({ ...editDressForm, category: value })}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="evening_wear">{t("eveningWear")}</SelectItem>
+                    <SelectItem value="casual">{t("casual")}</SelectItem>
+                    <SelectItem value="formal">{t("formal")}</SelectItem>
+                    <SelectItem value="party_wear">{t("partyWear")}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="editShortDescription">{t("shortDescription")}</Label>
+              <Input
+                id="editShortDescription"
+                value={editDressForm.shortDescription}
+                onChange={(e) => setEditDressForm({ ...editDressForm, shortDescription: e.target.value })}
+                required
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="editFullDescription">{t("fullDescription")}</Label>
+              <Textarea
+                id="editFullDescription"
+                rows={3}
+                value={editDressForm.fullDescription}
+                onChange={(e) => setEditDressForm({ ...editDressForm, fullDescription: e.target.value })}
+                required
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="editImage">{t("dressImage")} (optional)</Label>
+              <Input
+                id="editImage"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setEditDressForm({ ...editDressForm, image: e.target.files?.[0] || null })}
+              />
+              <p className="text-sm text-gray-500 mt-1">Leave empty to keep current image</p>
+            </div>
+
+            <div className="flex space-x-2 pt-4">
+              <Button
+                type="submit"
+                className="bg-boutique-500 hover:bg-boutique-600"
+                disabled={editDressMutation.isPending}
+              >
+                {editDressMutation.isPending ? "Updating..." : "Update Dress"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setEditingDress(null)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -89,8 +89,8 @@ export function Header() {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4">
-              <nav className="flex flex-col space-y-2">
+            <div className="md:hidden border-t border-gray-200 py-4 bg-white shadow-lg">
+              <nav className="flex flex-col space-y-1">
                 {navigation.map((item) => (
                   <button
                     key={item.name}
@@ -100,7 +100,7 @@ export function Header() {
                       }
                       setIsMobileMenuOpen(false);
                     }}
-                    className="mobile-menu-item text-left px-3 py-2 text-sm font-medium text-gray-500 hover:text-boutique-600"
+                    className="mobile-menu-item text-left px-6 py-4 text-base font-medium text-gray-700 hover:text-boutique-600 hover:bg-gray-50 transition-colors w-full"
                   >
                     {item.name}
                   </button>

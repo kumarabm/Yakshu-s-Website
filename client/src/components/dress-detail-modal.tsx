@@ -53,7 +53,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
         <DialogHeader>
           <DialogTitle>{t("dressDetails")}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Dress Image */}
           <div className="w-full">
@@ -63,7 +63,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
               className="w-full h-80 object-cover rounded-lg"
             />
           </div>
-          
+
           {/* Dress Information */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -72,12 +72,12 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
                 {t("availableSizes")}: {dress.sizes.join(", ")}
               </span>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("description")}</h3>
               <p className="text-gray-700 leading-relaxed">{dress.fullDescription}</p>
             </div>
-            
+
             {/* Contact Information */}
             <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">{t("contactInfo")}</h3>
@@ -99,7 +99,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
                 </div>
               </div>
             </div>
-            
+
             {/* Action Buttons */}
             <div className="flex space-x-4 pt-4">
               <Button

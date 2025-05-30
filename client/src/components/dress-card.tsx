@@ -25,7 +25,7 @@ export function DressCard({ dress, onViewDetails }: DressCardProps) {
         <p className="text-xs text-gray-600 mt-1 line-clamp-2">{dress.shortDescription}</p>
         <div className="mt-2 flex items-center justify-between">
           <span className="text-lg font-bold text-boutique-600">₹{dress.price}</span>
-          <span className="text-xs text-gray-500">{dress.sizes.slice(0, 2).join(", ")}{dress.sizes.length > 2 ? "..." : ""}</span>
+          <span className="text-xs text-gray-500">{dress.sizes.join(", ")}</span>
         </div>
         <Button
           onClick={() => onViewDetails(dress)}

@@ -49,7 +49,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] mx-auto"">
         <DialogHeader>
           <DialogTitle>{t("dressDetails")}</DialogTitle>
         </DialogHeader>
@@ -66,9 +66,9 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
 
           {/* Dress Information */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-3xl font-bold text-boutique-600">₹{dress.price}</span>
-              <span className="text-lg text-gray-600">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <span className="text-2xl sm:text-3xl font-bold text-boutique-600">₹{dress.price}</span>
+              <span className="text-sm sm:text-lg text-gray-600">
                 {t("availableSizes")}: {dress.sizes.join(", ")}
               </span>
             </div>
@@ -101,17 +101,17 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
             </div>
 
             {/* Action Buttons */}
-            <div className="flex space-x-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <Button
                 onClick={handleShare}
-                className="flex-1 bg-boutique-500 text-white hover:bg-boutique-600 transition-colors"
+                className="flex-1 bg-boutique-500 text-white hover:bg-boutique-600 transition-colors h-12"
               >
                 <Share className="mr-2" size={20} />
                 {t("share")}
               </Button>
               <Button
                 onClick={handleWhatsApp}
-                className="flex-1 bg-green-500 text-white hover:bg-green-600 transition-colors"
+                className="flex-1 bg-green-500 text-white hover:bg-green-600 transition-colors h-12"
               >
                 <MessageCircle className="mr-2" size={20} />
                 {t("whatsapp")}

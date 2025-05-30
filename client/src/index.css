@@ -186,6 +186,19 @@
     touch-action: manipulation;
   }
   
+  /* Ensure proper viewport handling */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Fix modal image sizing */
+  .modal-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+  
   .mobile-menu-item {
     padding: 1rem !important;
     font-size: 1.1rem !important;
@@ -209,7 +222,19 @@
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     width: 95vw !important;
-    max-width: 400px !important;
+    max-width: 95vw !important;
     max-height: 90vh !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+  }
+  
+  /* Ensure dialog content fits properly on mobile */
+  [data-radix-popper-content-wrapper] {
+    z-index: 50 !important;
+  }
+  
+  /* Fix dialog overlay on mobile */
+  [data-state="open"] {
+    overflow: hidden !important;
   }
 }

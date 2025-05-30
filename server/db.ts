@@ -1,15 +1,35 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
-import * as schema from "@shared/schema";
+import dotenv from 'dotenv';
+dotenv.config(); 
+import mongoose from 'mongoose';
 
-neonConfig.webSocketConstructor = ws;
+export const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGODB_URI;
+    
+    if (!mongoURI) {
+      throw new Error('MONGODB_URI environment variable is required. Please set up MongoDB Atlas and add your connection string.');
+    }
+    
+    await mongoose.connect(mongoURI);
+    
+    console.log('MongoDB connected successfully');
+    
+    // // Create default admin user if none exists
+    // const AdminUser = (await import('./models/AdminUser')).default;
+    // const adminCount = await AdminUser.countDocuments();
+    
+    // if (adminCount === 0) {
+    //   await AdminUser.create({
+    //     email: 'admin@yakshu.com',
+    //     password: 'admin123'
+    //   });
+    //   console.log('Default admin user created: admin@yakshu.com');
+    // }
+    
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
-
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+export default mongoose;

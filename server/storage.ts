@@ -1,114 +1,93 @@
-import { dresses, adminUsers, type Dress, type InsertDress, type AdminUser, type InsertAdminUser } from "@shared/schema";
+import { User, AdminUser, Dress, type IUser, type IAdminUser, type IDress, type InsertUser, type InsertAdminUser, type InsertDress, type UpdateDress } from "@shared/schema";
 
 export interface IStorage {
-  // Dress operations
-  getDresses(): Promise<Dress[]>;
-  createDress(dress: InsertDress): Promise<Dress>;
-  
-  // Admin operations
-  getAdminUsers(): Promise<AdminUser[]>;
-  getAdminByEmail(email: string): Promise<AdminUser | undefined>;
-  createAdminUser(admin: InsertAdminUser): Promise<AdminUser>;
-  deleteAdminUser(email: string): Promise<void>;
+  getUser(id: string): Promise<IUser | null>;
+  getUserByUsername(username: string): Promise<IUser | null>;
+  createUser(user: InsertUser): Promise<IUser>;
 
-  updateDress(id: number, dress: InsertDress): Promise<Dress | undefined>;
-  deleteDress(id: number): Promise<boolean>;
+  // Admin user methods
+  getAdminUser(id: string): Promise<IAdminUser | null>;
+  getAdminUserByEmail(email: string): Promise<IAdminUser | null>;
+  createAdminUser(adminUser: InsertAdminUser): Promise<IAdminUser>;
+  getAllAdminUsers(): Promise<IAdminUser[]>;
+  updateAdminUser(id: string, adminUser: Partial<InsertAdminUser>): Promise<IAdminUser | null>;
+  deleteAdminUser(id: string): Promise<boolean>;
+
+  // Dress methods
+  getDress(id: string): Promise<IDress | null>;
+  getAllDresses(): Promise<IDress[]>;
+  createDress(dress: InsertDress): Promise<IDress>;
+  updateDress(id: string, dress: UpdateDress): Promise<IDress | null>;
+  deleteDress(id: string): Promise<boolean>;
 }
 
-export class MemStorage implements IStorage {
-  private dresses: Map<number, Dress>;
-  private adminUsers: Map<number, AdminUser>;
-  private currentDressId: number;
-  private currentAdminId: number;
-
-  constructor() {
-    this.dresses = new Map();
-    this.adminUsers = new Map();
-    this.currentDressId = 1;
-    this.currentAdminId = 1;
-    
-    // Initialize with default data
-    this.initializeData();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: string): Promise<IUser | null> {
+    return await User.findById(id);
   }
 
-  private initializeData() {
-    // Initialize without any initial dresses - they will be uploaded by admin
-    this.initializeDefaultAdmin(); // Initialize default admin during data initialization
+  async getUserByUsername(username: string): Promise<IUser | null> {
+    return await User.findOne({ username });
   }
 
-  private async initializeDefaultAdmin(): Promise<void> {
-    const existingAdmin = Array.from(this.adminUsers.values()).find(admin => admin.email === "admin@yakshu.com");
-    if (!existingAdmin) {
-      const id = this.currentAdminId++;
-      const newAdmin: AdminUser = {
-        id,
-        email: "admin@yakshu.com",
-        password: "admin123"
-      };
-      this.adminUsers.set(id, newAdmin);
-      console.log("Default admin user created: admin@yakshu.com");
-    }
+  async createUser(insertUser: InsertUser): Promise<IUser> {
+    const user = new User(insertUser);
+    return await user.save();
   }
 
-  async getDresses(): Promise<Dress[]> {
-    return Array.from(this.dresses.values());
+  // Admin user methods
+  async getAdminUser(id: string): Promise<IAdminUser | null> {
+    return await AdminUser.findById(id);
   }
 
-  async createDress(insertDress: InsertDress): Promise<Dress> {
-    const id = this.currentDressId++;
-    const dress: Dress = { 
-      ...insertDress, 
+  async getAdminUserByEmail(email: string): Promise<IAdminUser | null> {
+    return await AdminUser.findOne({ email });
+  }
+
+  async createAdminUser(insertAdminUser: InsertAdminUser): Promise<IAdminUser> {
+    const adminUser = new AdminUser(insertAdminUser);
+    return await adminUser.save();
+  }
+
+  async getAllAdminUsers(): Promise<IAdminUser[]> {
+    return await AdminUser.find();
+  }
+
+  async updateAdminUser(id: string, adminUser: Partial<InsertAdminUser>): Promise<IAdminUser | null> {
+    return await AdminUser.findByIdAndUpdate(id, adminUser, { new: true });
+  }
+
+  async deleteAdminUser(id: string): Promise<boolean> {
+    const result = await AdminUser.findByIdAndDelete(id);
+    return result !== null;
+  }
+
+  // Dress methods
+  async getDress(id: string): Promise<IDress | null> {
+    return await Dress.findById(id);
+  }
+
+  async getAllDresses(): Promise<IDress[]> {
+    return await Dress.find().sort({ createdAt: -1 });
+  }
+
+  async createDress(insertDress: InsertDress): Promise<IDress> {
+    const dress = new Dress(insertDress);
+    return await dress.save();
+  }
+
+  async updateDress(id: string, updateDress: UpdateDress): Promise<IDress | null> {
+    return await Dress.findByIdAndUpdate(
       id, 
-      createdAt: new Date() 
-    };
-    this.dresses.set(id, dress);
-    return dress;
-  }
-
-  async updateDress(id: number, dress: InsertDress): Promise<Dress | undefined> {
-    if (!this.dresses.has(id)) {
-      return undefined;
-    }
-
-    const updatedDress: Dress = {
-      ...dress,
-      id,
-      createdAt: this.dresses.get(id)!.createdAt,
-    };
-
-    this.dresses.set(id, updatedDress);
-    return updatedDress;
-  }
-
-  async deleteDress(id: number): Promise<boolean> {
-    return this.dresses.delete(id);
-  }
-
-  async getAdminUsers(): Promise<AdminUser[]> {
-    return Array.from(this.adminUsers.values());
-  }
-
-  async getAdminByEmail(email: string): Promise<AdminUser | undefined> {
-    return Array.from(this.adminUsers.values()).find(
-      (admin) => admin.email === email
+      { ...updateDress, updatedAt: new Date() }, 
+      { new: true }
     );
   }
 
-  async createAdminUser(insertAdmin: InsertAdminUser): Promise<AdminUser> {
-    const id = this.currentAdminId++;
-    const admin: AdminUser = { ...insertAdmin, id };
-    this.adminUsers.set(id, admin);
-    return admin;
-  }
-
-  async deleteAdminUser(email: string): Promise<void> {
-    const adminToDelete = Array.from(this.adminUsers.entries()).find(
-      ([_, admin]) => admin.email === email
-    );
-    if (adminToDelete) {
-      this.adminUsers.delete(adminToDelete[0]);
-    }
+  async deleteDress(id: string): Promise<boolean> {
+    const result = await Dress.findByIdAndDelete(id);
+    return result !== null;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

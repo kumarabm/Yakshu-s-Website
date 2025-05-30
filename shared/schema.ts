@@ -1,47 +1,88 @@
-import { pgTable, text, serial, integer, boolean, timestamp, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
+import mongoose, { Schema, Document } from 'mongoose';
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+export interface IUser extends Document {
+  username: string;
+  password: string;
+}
+
+export interface IAdminUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  createdAt: Date;
+}
+
+export interface IDress extends Document {
+  name: string;
+  price: number;
+  sizes: string[];
+  shortDescription: string;
+  fullDescription: string;
+  category: string;
+  imageUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const userSchema = new Schema<IUser>({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 });
 
-export const dresses = pgTable("dresses", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  price: integer("price").notNull(),
-  sizes: text("sizes").array().notNull(),
-  image: text("image").notNull(),
-  description: text("description").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+const adminUserSchema = new Schema<IAdminUser>({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true, default: 'admin' },
+  createdAt: { type: Date, default: Date.now },
 });
 
-export const adminUsers = pgTable("admin_users", {
-  id: serial("id").primaryKey(),
-  email: text("email").notNull().unique(),
-  password: text("password").notNull(),
+const dressSchema = new Schema<IDress>({
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  sizes: [{ type: String, required: true }],
+  shortDescription: { type: String, required: true },
+  fullDescription: { type: String, required: true },
+  category: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
-export const insertUserSchema = createInsertSchema(users).omit({
-  id: true,
+export const User = mongoose.model<IUser>('User', userSchema);
+export const AdminUser = mongoose.model<IAdminUser>('AdminUser', adminUserSchema);
+export const Dress = mongoose.model<IDress>('Dress', dressSchema);
+
+import { z } from 'zod';
+
+export type { IUser as User, IAdminUser as AdminUser, IDress as Dress };
+export type InsertUser = Pick<IUser, 'username' | 'password'>;
+export type InsertAdminUser = Pick<IAdminUser, 'name' | 'email' | 'password' | 'role'>;
+export type InsertDress = Pick<IDress, 'name' | 'price' | 'sizes' | 'shortDescription' | 'fullDescription' | 'category' | 'imageUrl'>;
+export type UpdateDress = Partial<InsertDress>;
+
+// Validation schemas for compatibility
+export const insertUserSchema = z.object({
+  username: z.string().min(1),
+  password: z.string().min(1),
 });
 
-export const insertDressSchema = createInsertSchema(dresses).omit({
-  id: true,
-  createdAt: true,
+export const insertAdminUserSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  password: z.string().min(1),
+  role: z.string().default('admin'),
 });
 
-export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({
-  id: true,
+export const insertDressSchema = z.object({
+  name: z.string().min(1),
+  price: z.number().positive(),
+  sizes: z.array(z.string()),
+  shortDescription: z.string().min(1),
+  fullDescription: z.string().min(1),
+  category: z.string().min(1),
+  imageUrl: z.string().min(1),
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
-
-export type InsertDress = z.infer<typeof insertDressSchema>;
-export type Dress = typeof dresses.$inferSelect;
-
-export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
-export type AdminUser = typeof adminUsers.$inferSelect;
+export const updateDressSchema = insertDressSchema.partial();

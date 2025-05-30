@@ -1,115 +1,98 @@
-import { dresses, adminUsers, type Dress, type InsertDress, type AdminUser, type InsertAdminUser } from "@shared/schema";
+import { User, AdminUser, Dress, type IUser, type IAdminUser, type IDress, type InsertUser, type InsertAdminUser, type InsertDress, type UpdateDress } from "@shared/schema";
 
 export interface IStorage {
-  // Dress operations
-  getDresses(): Promise<Dress[]>;
-  createDress(dress: InsertDress): Promise<Dress>;
-  
-  // Admin operations
-  getAdminUsers(): Promise<AdminUser[]>;
-  getAdminByEmail(email: string): Promise<AdminUser | undefined>;
-  createAdminUser(admin: InsertAdminUser): Promise<AdminUser>;
-  deleteAdminUser(email: string): Promise<void>;
+  getUser(id: string): Promise<IUser | null>;
+  getUserByUsername(username: string): Promise<IUser | null>;
+  createUser(user: InsertUser): Promise<IUser>;
+
+  // Admin user methods
+  getAdminUser(id: string): Promise<IAdminUser | null>;
+  getAdminUserByEmail(email: string): Promise<IAdminUser | null>;
+  createAdminUser(adminUser: InsertAdminUser): Promise<IAdminUser>;
+  getAllAdminUsers(): Promise<IAdminUser[]>;
+  updateAdminUser(id: string, adminUser: Partial<InsertAdminUser>): Promise<IAdminUser | null>;
+  deleteAdminUser(id: string): Promise<boolean>;
+
+  // Dress methods
+  getDress(id: string): Promise<IDress | null>;
+  getAllDresses(): Promise<IDress[]>;
+  createDress(dress: InsertDress): Promise<IDress>;
+  updateDress(id: string, dress: UpdateDress): Promise<IDress | null>;
+  deleteDress(id: string): Promise<boolean>;
 }
 
-export class MemStorage implements IStorage {
-  private dresses: Map<number, Dress>;
-  private adminUsers: Map<number, AdminUser>;
-  private currentDressId: number;
-  private currentAdminId: number;
-
-  constructor() {
-    this.dresses = new Map();
-    this.adminUsers = new Map();
-    this.currentDressId = 1;
-    this.currentAdminId = 1;
-    
-    // Initialize with default data
-    this.initializeData();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: string): Promise<IUser | null> {
+    return await User.findById(id);
   }
 
-  private initializeData() {
-    // Add initial dresses
-    const initialDresses: InsertDress[] = [
-      {
-        name: "Floral Summer Dress",
-        price: 1599,
-        sizes: ["S", "M", "L"],
-        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&auto=format&fit=crop",
-        description: "Lightweight floral dress perfect for summer outings"
-      },
-      {
-        name: "Elegant Evening Gown",
-        price: 2599,
-        sizes: ["M", "L", "XL"],
-        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop",
-        description: "Stunning gown for formal occasions"
-      }
-    ];
-
-    initialDresses.forEach(dress => {
-      const id = this.currentDressId++;
-      const newDress: Dress = { 
-        ...dress, 
-        id, 
-        createdAt: new Date() 
-      };
-      this.dresses.set(id, newDress);
-    });
-
-    // Add initial admin users
-    const initialAdmins: InsertAdminUser[] = [
-      { email: "admin@yakshu.com", password: "admin123" },
-      { email: "manager@yakshu.com", password: "manager123" }
-    ];
-
-    initialAdmins.forEach(admin => {
-      const id = this.currentAdminId++;
-      const newAdmin: AdminUser = { ...admin, id };
-      this.adminUsers.set(id, newAdmin);
-    });
+  async getUserByUsername(username: string): Promise<IUser | null> {
+    return await User.findOne({ username });
   }
 
-  async getDresses(): Promise<Dress[]> {
-    return Array.from(this.dresses.values());
+  async createUser(insertUser: InsertUser): Promise<IUser> {
+    const user = new User(insertUser);
+    return await user.save();
   }
 
-  async createDress(insertDress: InsertDress): Promise<Dress> {
-    const id = this.currentDressId++;
-    const dress: Dress = { 
-      ...insertDress, 
-      id, 
-      createdAt: new Date() 
-    };
-    this.dresses.set(id, dress);
-    return dress;
+  // Admin user methods
+  async getAdminUser(id: string): Promise<IAdminUser | null> {
+    return await AdminUser.findById(id);
   }
 
-  async getAdminUsers(): Promise<AdminUser[]> {
-    return Array.from(this.adminUsers.values());
+  async getAdminUserByEmail(email: string): Promise<IAdminUser | null> {
+    return await AdminUser.findOne({ email });
   }
 
-  async getAdminByEmail(email: string): Promise<AdminUser | undefined> {
-    return Array.from(this.adminUsers.values()).find(
-      (admin) => admin.email === email
-    );
+  async createAdminUser(insertAdminUser: InsertAdminUser): Promise<IAdminUser> {
+    const adminUser = new AdminUser(insertAdminUser);
+    return await adminUser.save();
   }
 
-  async createAdminUser(insertAdmin: InsertAdminUser): Promise<AdminUser> {
-    const id = this.currentAdminId++;
-    const admin: AdminUser = { ...insertAdmin, id };
-    this.adminUsers.set(id, admin);
-    return admin;
+  async getAllAdminUsers(): Promise<IAdminUser[]> {
+    return await AdminUser.find();
   }
 
-  async deleteAdminUser(email: string): Promise<void> {
-    const adminToDelete = Array.from(this.adminUsers.entries()).find(
-      ([_, admin]) => admin.email === email
-    );
-    if (adminToDelete) {
-      this.adminUsers.delete(adminToDelete[0]);
+  async updateAdminUser(id: string, adminUser: Partial<InsertAdminUser>): Promise<IAdminUser | null> {
+    return await AdminUser.findByIdAndUpdate(id, adminUser, { new: true });
+  }
+
+  async deleteAdminUser(id: string): Promise<boolean> {
+    try {
+      const result = await AdminUser.findByIdAndDelete(id);
+      return result !== null;
+    } catch (error) {
+      console.error("Error deleting admin user:", error);
+      return false;
     }
   }
+
+  // Dress methods
+  async getDress(id: string): Promise<IDress | null> {
+    return await Dress.findById(id);
+  }
+
+  async getAllDresses(): Promise<IDress[]> {
+    return await Dress.find().sort({ createdAt: -1 });
+  }
+
+  async createDress(insertDress: InsertDress): Promise<IDress> {
+    const dress = new Dress(insertDress);
+    return await dress.save();
+  }
+
+  async updateDress(id: string, updateDress: UpdateDress): Promise<IDress | null> {
+    return await Dress.findByIdAndUpdate(
+      id, 
+      { ...updateDress, updatedAt: new Date() }, 
+      { new: true }
+    );
+  }
+
+  async deleteDress(id: string): Promise<boolean> {
+    const result = await Dress.findByIdAndDelete(id);
+    return result !== null;
+  }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

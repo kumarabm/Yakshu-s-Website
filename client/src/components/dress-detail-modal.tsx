@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { type Dress } from "@shared/schema";
@@ -52,6 +52,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
       <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] mx-auto">
         <DialogHeader>
           <DialogTitle>{t("dressDetails")}</DialogTitle>
+            <DialogDescription>{t("description.ofDress")}</DialogDescription> {/* Add this line */}
         </DialogHeader>
 
         <div className="space-y-6">

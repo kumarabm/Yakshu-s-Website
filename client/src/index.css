@@ -165,13 +165,24 @@
   }
 }
 
-@media (min-width: 641px) and (max-width: 768px) {
+/* Default: 1 item per row on mobile */
+.dress-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* 2 items per row on tablets */
+@media (min-width: 641px) and (max-width: 1024px) {
   .dress-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
   }
 }
 
-@media (min-width: 769px) {
+/* 3 items per row on desktop */
+@media (min-width: 1025px) {
   .dress-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 1.5rem !important;
@@ -181,9 +192,13 @@
 /* Enhanced mobile and touch device support */
 @media (max-width: 768px) {
   button {
-    min-height: 48px !important;
-    min-width: 48px !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
     touch-action: manipulation;
+  }
+
+  .dress-card-image {
+    min-height: 180px !important;
   }
   
   /* Ensure proper viewport handling */

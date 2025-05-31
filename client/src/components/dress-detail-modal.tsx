@@ -61,6 +61,11 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
               src={dress.imageUrl}
               alt={dress.name}
               className="w-full h-80 object-cover rounded-lg"
+              onError={(e) => {
+                console.error('Image failed to load:', dress.imageUrl);
+                e.currentTarget.style.display = 'none';
+              }}
+              loading="lazy"
             />
           </div>
 

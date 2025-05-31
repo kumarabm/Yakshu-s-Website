@@ -200,7 +200,7 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
         shortDescription: req.body.shortDescription,
         fullDescription: req.body.fullDescription,
         category: req.body.category,
-        imageUrl: req.file ? `/uploads/${req.file.filename}` : '/uploads/placeholder.jpg',
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` : '/uploads/placeholder.jpg',
       };
 
       if (!dressData.name || !dressData.price || !dressData.sizes.length || !dressData.shortDescription || !dressData.fullDescription || !dressData.category) {
@@ -238,7 +238,7 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
       };
 
       if (req.file) {
-        dressData.imageUrl = `/uploads/${req.file.filename}`;
+        dressData.imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
       }
 
       // Remove undefined values

@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { createServer } from "http";
 import { connectDB } from "./db";
+import path from 'path'; // Import the 'path' module
 
 const app = express();
 app.use(express.json());
@@ -57,6 +58,14 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
+
+  // Serve uploaded images with proper CORS and headers
+  app.use('/uploads', express.static(path.join(__dirname, '../uploads'), {
+    setHeaders: (res, path) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+  }));
 
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.

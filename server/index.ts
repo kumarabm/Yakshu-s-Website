@@ -147,13 +147,7 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // Serve uploaded images with proper CORS and headers (moved before vite setup)
-  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'), {
-    setHeaders: (res, path) => {
-      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-      res.setHeader('Access-Control-Allow-Origin', '*');
-    }
-  }));
+  // No need for uploads static serving since we're using Base64
 
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route

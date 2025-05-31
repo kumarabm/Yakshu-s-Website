@@ -328,22 +328,20 @@ import fs from "fs";
 
 const JWT_SECRET = process.env.JWT_SECRET || "yakshu-boutique-secret-key";
 
-// Setup multer for file uploads
-const storage_multer = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const uploadDir = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+// Setup multer for memory storage
+const storage_multer = multer.memoryStorage();
+const upload = multer({ 
+  storage: storage_multer,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
   }
 });
 
-const upload = multer({ storage: storage_multer });
+// Helper function to convert image to base64
+function convertToBase64(file: Express.Multer.File): string {
+  const base64 = file.buffer.toString('base64');
+  return `data:${file.mimetype};base64,${base64}`;
+}
 
 // Middleware to verify JWT token
 function authenticateToken(req: any, res: any, next: any) {
@@ -364,11 +362,8 @@ function authenticateToken(req: any, res: any, next: any) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Serve uploaded images
-  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
-  
   // Serve placeholder image for missing images
-  app.get('/uploads/placeholder.jpg', (req, res) => {
+  app.get('/placeholder.jpg', (req, res) => {
     // Create a simple SVG placeholder
     const placeholder = `<svg width="300" height="400" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="#f3f4f6"/>
@@ -531,7 +526,7 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
         shortDescription: req.body.shortDescription,
         fullDescription: req.body.fullDescription,
         category: req.body.category,
-        imageUrl: req.file ? `https://${req.get('host')}/uploads/${req.file.filename}` : 'https://' + req.get('host') + '/uploads/placeholder.jpg',
+        imageUrl: req.file ? convertToBase64(req.file) : `https://${req.get('host')}/placeholder.jpg`,
       };
 
       if (!dressData.name || !dressData.price || !dressData.sizes.length || !dressData.shortDescription || !dressData.fullDescription || !dressData.category) {
@@ -569,7 +564,7 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
       };
 
       if (req.file) {
-        dressData.imageUrl = `https://${req.get('host')}/uploads/${req.file.filename}`;
+        dressData.imageUrl = convertToBase64(req.file);
       }
 
       // Remove undefined values
@@ -617,51 +612,7 @@ app.get("/api/admin/users", authenticateToken, async (req, res) => {
     }
   });
 
-  // Fix all image URLs endpoint
-  app.post("/api/fix-images", authenticateToken, async (req, res) => {
-    try {
-      const dresses = await storage.getAllDresses();
-      const host = req.get('host');
-      let fixedCount = 0;
-      let deletedCount = 0;
-      
-      for (const dress of dresses) {
-        let needsUpdate = false;
-        let updatedImageUrl = dress.imageUrl;
-        
-        // Check if image exists
-        if (dress.imageUrl && dress.imageUrl.includes('/uploads/')) {
-          const filename = dress.imageUrl.split('/uploads/')[1];
-          const imagePath = path.join(process.cwd(), 'uploads', filename);
-          
-          if (!fs.existsSync(imagePath)) {
-            // Image file doesn't exist, use placeholder
-            updatedImageUrl = `https://${host}/uploads/placeholder.jpg`;
-            needsUpdate = true;
-            deletedCount++;
-          } else if (dress.imageUrl.startsWith('http://')) {
-            // Fix HTTP to HTTPS
-            updatedImageUrl = dress.imageUrl.replace('http://', 'https://');
-            needsUpdate = true;
-            fixedCount++;
-          }
-        }
-        
-        if (needsUpdate) {
-          await storage.updateDress(dress.id || dress._id, { imageUrl: updatedImageUrl });
-        }
-      }
-      
-      res.json({ 
-        message: `Fixed ${fixedCount} HTTP URLs and replaced ${deletedCount} missing images with placeholders`,
-        fixedCount,
-        deletedCount 
-      });
-    } catch (error) {
-      console.error("Fix images error:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
+  
 
   // Initialize default admin user if none exists
   app.post("/api/init", async (req, res) => {

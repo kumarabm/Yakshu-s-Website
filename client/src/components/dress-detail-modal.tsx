@@ -49,7 +49,7 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] mx-auto"">
+      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] mx-auto">
         <DialogHeader>
           <DialogTitle>{t("dressDetails")}</DialogTitle>
         </DialogHeader>

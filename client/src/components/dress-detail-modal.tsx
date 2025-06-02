@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { type Dress } from "@shared/schema";
@@ -44,16 +44,17 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
     const message = encodeURIComponent(
       `Hi! I'm interested in ${dress.name} from Yakshu Boutique. Price: ₹${dress.price}`
     );
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919080007550?text=${message}`, '_blank');
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="modal-content max-w-2xl max-h-[90vh] overflow-y-auto w-[95vw] mx-auto">
         <DialogHeader>
           <DialogTitle>{t("dressDetails")}</DialogTitle>
+            <DialogDescription>{t("description.ofDress")}</DialogDescription> {/* Add this line */}
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Dress Image */}
           <div className="w-full">
@@ -61,23 +62,28 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
               src={dress.imageUrl}
               alt={dress.name}
               className="w-full h-80 object-cover rounded-lg"
+              onError={(e) => {
+                console.error('Image failed to load:', dress.imageUrl);
+                e.currentTarget.style.display = 'none';
+              }}
+              loading="lazy"
             />
           </div>
-          
+
           {/* Dress Information */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-3xl font-bold text-boutique-600">₹{dress.price}</span>
-              <span className="text-lg text-gray-600">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <span className="text-2xl sm:text-3xl font-bold text-boutique-600">₹{dress.price}</span>
+              <span className="text-sm sm:text-lg text-gray-600">
                 {t("availableSizes")}: {dress.sizes.join(", ")}
               </span>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("description")}</h3>
               <p className="text-gray-700 leading-relaxed">{dress.fullDescription}</p>
             </div>
-            
+
             {/* Contact Information */}
             <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">{t("contactInfo")}</h3>
@@ -99,19 +105,19 @@ export function DressDetailModal({ dress, isOpen, onClose }: DressDetailModalPro
                 </div>
               </div>
             </div>
-            
+
             {/* Action Buttons */}
-            <div className="flex space-x-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <Button
                 onClick={handleShare}
-                className="flex-1 bg-boutique-500 text-white hover:bg-boutique-600 transition-colors"
+                className="flex-1 bg-boutique-500 text-white hover:bg-boutique-600 transition-colors h-12"
               >
                 <Share className="mr-2" size={20} />
                 {t("share")}
               </Button>
               <Button
                 onClick={handleWhatsApp}
-                className="flex-1 bg-green-500 text-white hover:bg-green-600 transition-colors"
+                className="flex-1 bg-green-500 text-white hover:bg-green-600 transition-colors h-12"
               >
                 <MessageCircle className="mr-2" size={20} />
                 {t("whatsapp")}

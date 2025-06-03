@@ -66,7 +66,7 @@ const resources = {
       "footer.description": "Your destination for elegant and sophisticated women's dresses. We curate the finest collection for every occasion.",
       "footer.contactInfo": "Contact Info",
       "footer.followUs": "Follow Us",
-      "footer.copyright": "© 2024 Yakshu Boutique. All rights reserved.",
+      "footer.copyright": "© 2025 Yakshu Boutique. All rights reserved.",
       
       // Messages
       "invalidCredentials": "Invalid credentials. Please use admin@yakshu.com / admin123",
@@ -138,7 +138,7 @@ const resources = {
       "footer.description": "நேர்த்தியான மற்றும் நுட்பமான பெண்கள் ஆடைகளுக்கான உங்கள் இலக்கு. ஒவ்வொரு சந்தர்ப்பத்திற்கும் சிறந்த தொகுப்பை நாங்கள் தேர்ந்தெடுக்கிறோம்.",
       "footer.contactInfo": "தொடர்பு தகவல்",
       "footer.followUs": "எங்களைப் பின்தொடருங்கள்",
-      "footer.copyright": "© 2024 யக்ஷு பூட்டிக். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+      "footer.copyright": "© 2025 யக்ஷு பூட்டிக். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
       
       // Messages
       "invalidCredentials": "தவறான நற்சான்றிதழ்கள். தயவுசெய்து admin@yakshu.com / admin123 ஐப் பயன்படுத்துங்கள்",
@@ -210,7 +210,7 @@ const resources = {
       "footer.description": "सुरुचिपूर्ण और परिष्कृत महिलाओं के कपड़ों के लिए आपका गंतव्य। हम हर अवसर के लिए बेहतरीन संग्रह तैयार करते हैं।",
       "footer.contactInfo": "संपर्क जानकारी",
       "footer.followUs": "हमें फॉलो करें",
-      "footer.copyright": "© 2024 यक्षु बुटीक। सभी अधिकार सुरक्षित।",
+      "footer.copyright": "© 2025 यक्षु बुटीक। सभी अधिकार सुरक्षित।",
       
       // Messages
       "invalidCredentials": "अमान्य क्रेडेंशियल। कृपया admin@yakshu.com / admin123 का उपयोग करें",
@@ -282,7 +282,7 @@ const resources = {
       "footer.description": "മനോഹരവും പരിഷ്കൃതവുമായ സ്ത്രീകളുടെ വസ്ത്രങ്ങൾക്കായുള്ള നിങ്ങളുടെ ലക്ష്യസ്ഥാനം. എല്ലാ അവസരങ്ങൾക്കും ഞങ്ങൾ മികച്ച ശേഖരം സംഘടിപ്പിക്കുന്നു.",
       "footer.contactInfo": "ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ",
       "footer.followUs": "ഞങ്ങളെ പിന്തുടരുക",
-      "footer.copyright": "© 2024 യക്ഷു ബൂട്ടിക്ക്. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
+      "footer.copyright": "© 2025 യക്ഷു ബൂട്ടിക്ക്. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
       
       // Messages
       "invalidCredentials": "അസാധുവായ ക്രെഡൻഷ്യലുകൾ. ദയവായി admin@yakshu.com / admin123 ഉപയോഗിക്കുക",

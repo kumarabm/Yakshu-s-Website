@@ -56,7 +56,7 @@ export default function Home() {
           <div className="text-center">
             <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-6 py-3 mb-8">
               <span className="text-gold-400 text-sm font-medium tracking-wider uppercase">
-                ✨ Premium Collection 2024
+                ✨ Premium Collection 2025
               </span>
             </div>
             

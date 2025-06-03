@@ -1,5 +1,5 @@
 /* Font Awesome icons */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
 @tailwind base;
 @tailwind components;
@@ -69,25 +69,57 @@
 }
 
 /* Custom boutique color classes */
-.text-boutique-50 { color: hsl(var(--boutique-50)); }
-.text-boutique-100 { color: hsl(var(--boutique-100)); }
-.text-boutique-500 { color: hsl(var(--boutique-500)); }
-.text-boutique-600 { color: hsl(var(--boutique-600)); }
-.text-boutique-700 { color: hsl(var(--boutique-700)); }
+.text-boutique-50 {
+  color: hsl(var(--boutique-50));
+}
+.text-boutique-100 {
+  color: hsl(var(--boutique-100));
+}
+.text-boutique-500 {
+  color: hsl(var(--boutique-500));
+}
+.text-boutique-600 {
+  color: hsl(var(--boutique-600));
+}
+.text-boutique-700 {
+  color: hsl(var(--boutique-700));
+}
 
-.bg-boutique-50 { background-color: hsl(var(--boutique-50)); }
-.bg-boutique-100 { background-color: hsl(var(--boutique-100)); }
-.bg-boutique-500 { background-color: hsl(var(--boutique-500)); }
-.bg-boutique-600 { background-color: hsl(var(--boutique-600)); }
-.bg-boutique-700 { background-color: hsl(var(--boutique-700)); }
+.bg-boutique-50 {
+  background-color: hsl(var(--boutique-50));
+}
+.bg-boutique-100 {
+  background-color: hsl(var(--boutique-100));
+}
+.bg-boutique-500 {
+  background-color: hsl(var(--boutique-500));
+}
+.bg-boutique-600 {
+  background-color: hsl(var(--boutique-600));
+}
+.bg-boutique-700 {
+  background-color: hsl(var(--boutique-700));
+}
 
-.border-boutique-500 { border-color: hsl(var(--boutique-500)); }
-.border-boutique-600 { border-color: hsl(var(--boutique-600)); }
+.border-boutique-500 {
+  border-color: hsl(var(--boutique-500));
+}
+.border-boutique-600 {
+  border-color: hsl(var(--boutique-600));
+}
 
-.hover\:bg-boutique-600:hover { background-color: hsl(var(--boutique-600)); }
-.hover\:bg-boutique-700:hover { background-color: hsl(var(--boutique-700)); }
-.hover\:text-boutique-600:hover { color: hsl(var(--boutique-600)); }
-.hover\:text-boutique-700:hover { color: hsl(var(--boutique-700)); }
+.hover\:bg-boutique-600:hover {
+  background-color: hsl(var(--boutique-600));
+}
+.hover\:bg-boutique-700:hover {
+  background-color: hsl(var(--boutique-700));
+}
+.hover\:text-boutique-600:hover {
+  color: hsl(var(--boutique-600));
+}
+.hover\:text-boutique-700:hover {
+  color: hsl(var(--boutique-700));
+}
 
 /* Smooth animations */
 .transition-colors {
@@ -114,39 +146,53 @@
     font-size: 2rem !important;
     line-height: 2.5rem !important;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem !important;
     line-height: 1.5rem !important;
   }
-  
-  .dress-grid {
+
+  /* Header mobile improvements */
+  header .flex.items-center.justify-between {
+    padding: 0.5rem 0 !important;
+  }
+
+  header h1 {
+    font-size: 1.5rem !important;
+  }
+
+  /* .dress-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+  } */
+
+  .dress-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
   }
-  
+
   .dress-card-image {
     height: 200px !important;
     object-fit: cover !important;
   }
-  
+
   .modal-content {
     margin: 0.5rem !important;
     max-height: 95vh !important;
     overflow-y: auto !important;
     border-radius: 8px !important;
   }
-  
+
   .admin-form-grid {
     grid-template-columns: 1fr !important;
   }
-  
+
   /* Better spacing for mobile */
   .px-4 {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
-  
+
   /* Improve text readability */
   body {
     -webkit-text-size-adjust: 100% !important;
@@ -159,7 +205,7 @@
   .hero-title {
     font-size: 1.8rem !important;
   }
-  
+
   .modal-content {
     max-height: 85vh !important;
   }
@@ -200,36 +246,43 @@
   .dress-card-image {
     min-height: 180px !important;
   }
-  
+
   /* Ensure proper viewport handling */
-  html, body {
+  html,
+  body {
     overflow-x: hidden !important;
     width: 100% !important;
   }
-  
+
   /* Fix modal image sizing */
   .modal-content img {
     max-width: 100% !important;
     height: auto !important;
     object-fit: cover !important;
   }
-  
+
   .mobile-menu-item {
     padding: 1rem !important;
     font-size: 1.1rem !important;
     touch-action: manipulation;
   }
-  
+
   /* Improve tap targets */
-  a, button, input, select, textarea {
+  a,
+  button,
+  input,
+  select,
+  textarea {
     touch-action: manipulation;
   }
-  
+
   /* Prevent zoom on input focus */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px !important;
   }
-  
+
   /* Better modal positioning */
   .modal-content {
     position: fixed !important;
@@ -242,12 +295,12 @@
     margin: 0 !important;
     border-radius: 12px !important;
   }
-  
+
   /* Ensure dialog content fits properly on mobile */
   [data-radix-popper-content-wrapper] {
     z-index: 50 !important;
   }
-  
+
   /* Fix dialog overlay on mobile */
   [data-state="open"] {
     overflow: hidden !important;

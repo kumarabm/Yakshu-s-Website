@@ -24,7 +24,7 @@ export function Footer() {
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail size={16} className="mr-2" />
-                info@yakshuboutique.com
+                saransabjaf625@gmail.com
               </div>
             </div>
           </div>

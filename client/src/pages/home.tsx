@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { type Dress } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
+import instagramIcon from "../assets/icons/instagram.png";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -189,7 +190,7 @@ export default function Home() {
             </div>
             <div className="glass-effect p-8 rounded-2xl">
               <div className="w-16 h-16 bg-gradient-to-br from-boutique-500 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl">📱</span>
+                <span className="text-white text-2xl"><img src={instagramIcon} alt="Instagram" className="w-6 h-6 inline-block" /></span>
               </div>
               <h3 className="text-2xl font-semibold text-boutique-800 mb-4">Instagram</h3>
               <a 

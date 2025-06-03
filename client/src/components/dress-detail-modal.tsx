@@ -141,6 +141,8 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { type Dress } from "@shared/schema";
 import { Phone, Instagram, Share, MessageCircle } from "lucide-react";
+import instagramIcon from "../assets/icons/instagram.png";
+
 
 interface DressDetailModalProps {
   dress: Dress | null;
@@ -256,10 +258,8 @@ export function DressDetailModal({
                 </div>
 
                 <div className="flex items-center">
-                  <Instagram
-                    className="text-boutique-600 mr-2 sm:mr-3 flex-shrink-0"
-                    size={16}
-                  />
+                                 <span className="text-boutique-600 mr-2 sm:mr-3 flex-shrink-0"><img src={instagramIcon} alt="Instagram" className="w-6 h-6 inline-block" /></span>
+                  
                   <a
                     href="https://instagram.com/sara_nya1961"
                     target="_blank"

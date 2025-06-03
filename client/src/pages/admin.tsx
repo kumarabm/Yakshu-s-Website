@@ -511,6 +511,7 @@ export default function Admin() {
                       type="file"
                       accept="image/*"
                       onChange={(e) => setDressForm({ ...dressForm, image: e.target.files?.[0] || null })}
+                      required
                     />
                   </div>
 
